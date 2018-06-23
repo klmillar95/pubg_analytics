@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Some title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand">Analytics Portfolio Showcase</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class = "active"><a href="pubg">PUBG</a></li>
+          <li><a href="test">Test</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id = "pubg" class="container-fluid">
+      <div class="row">
+        {% for id in ids %}
+          <div class="col-sm-4">
+            <span id="{{id}}" style='width:100%; height:400px;'></span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+
+    var graphs = {{graphs|tojson|safe}};
+    var ids = {{ids|tojson|safe}};
+
+    for(var i in graphs) {
+      var chart = Highcharts.chart(ids[i],
+                       graphs[i]);
+     }
+  </script>
+  <!-- <script src="{{ url_for('static', filename='js/hi.js') }}"></script>   -->
+</html>
